@@ -161,7 +161,7 @@ time.sleep(5)
 
 #Git push
 os.system("cd /home/kiran/sdn-midterm")
-os.system("/usr/bin/python3.8 git-tester.py")
+os.system("/usr/bin/python3.8 /home/kiran/SDNcodes/git-tester.py")
 # os.system("cd /home/kiran/sdn-midterm/")
 # os.system("git pull")
 # os.system("cp -r /home/kiran/SDNcodes/. /home/kiran/sdn-midterm/.")
