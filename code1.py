@@ -160,6 +160,7 @@ print(output)
 time.sleep(5)
 
 #Git push
+os.system("cd /home/kiran/sdn-midterm")
 os.system("/usr/bin/python3.8 git-tester.py")
 # os.system("cd /home/kiran/sdn-midterm/")
 # os.system("git pull")
