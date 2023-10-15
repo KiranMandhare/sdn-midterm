@@ -116,19 +116,18 @@ connectionMininet.enable(cmd="sudo su",pattern="password")
 output = connectionMininet.send_command("sudo mn --clean",expect_string='.*#')
 #run topology
 print(output)
-output = connectionMininet.send_command("sudo mn --controller=remote,ip=10.20.30.2 --mac  --topo=linear,3"+\
-                          " --switch ovsk,protocols=OpenFlow13",expect_string=r'mininet>')
+output = connectionMininet.send_command("sudo mn",expect_string=r'mininet>')
 print(output)
 
 connectionMininet2 = ConnectHandler(**routers["Mininet"])
 connectionMininet2.enable(cmd="sudo su",pattern="password")
-# create OVS switch
-output = connectionMininet2.send_command("sudo ovs-vsctl add-br ovsBridge")
-output = connectionMininet2.send_command("sudo ovs-vsctl set bridge ovsBridge protocols=OpenFlow13")
-output = connectionMininet2.send_command("sudo ovs-vsctl set-controller ovsBridge tcp:"+routers["Controller"]["host"]+":6633")
+
+output = connectionMininet2.send_command("sudo ovs-vsctl set bridge s1 protocols=OpenFlow13")
+output = connectionMininet2.send_command("sudo ovs-vsctl set-controller s1 tcp:"+routers["Controller"]["host"]+":6633")
 print("Waiting for the switch to connect to the controller")
 time.sleep(60)
-output = connectionMininet2.send_command("sudo ovs-vsctl list controller ovsBridge")
+########################################################################################################
+output = connectionMininet2.send_command("sudo ovs-vsctl list controller s1")
 output = output.split('\n')
 
 for line in output:
@@ -173,7 +172,8 @@ print(output)
 
 
 print("Issuing packet in messaages")
-connectionMininet.send_command_timing("pingall")
+output = connectionMininet.send_command_timing("pingall")
+print(output)
 
 print("RYU - http://10.20.30.2:8080")
 print("Dashboard - http://10.20.30.2:9000/")

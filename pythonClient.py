@@ -21,7 +21,7 @@ totalPackets =0
 def checkPacketInMessages(packet):
     #print("Processing new packet")
     global countEvery5seconds
-    if TCP in packet and packet[TCP].dport==6653:
+    if TCP in packet and (packet[TCP].dport==6633 or packet[TCP].dport==6653):
         if Raw in packet:
             payload = binascii.hexlify(packet[Raw].load).decode("utf-8")
             if payload[2:4] == "0a":
